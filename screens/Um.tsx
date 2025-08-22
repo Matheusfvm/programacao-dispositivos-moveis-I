@@ -1,93 +1,71 @@
-import React from "react";
-import { View, StyleSheet, Image, Alert, TouchableOpacity} from "react-native";
-import Constants from "expo-constants";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import logo from "./../assets/adaptive-icon.png";
-
 export default function Um() {
+  const [nome, setNome] = useState("");
+  const [idade, setIdade] = useState("");
+  const [resultado, setResultado] = useState("");
 
-    const handlePress = () => {
-        Alert.alert("Boa noite!");
-    };
+  const handleSalvar = () => {
+    if (nome && idade) {
+      setResultado(`Nome: ${nome} - Idade: ${idade}`);
+    } else {
+      setResultado("Por favor, preencha todos os campos.");
+    }
+  };
 
-    return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
-                <TouchableOpacity onPress={handlePress}>
+  return (
+    <SafeAreaView style={styles.container}>
+        <Text style={styles.label}>Nome</Text>
+        <TextInput
+        style={styles.input}
+        value={nome}
+        onChangeText={setNome}
+        />
 
-                </TouchableOpacity>
-                <View style={styles.topo}>
-                    <View style={styles.caixaLime}>
-                        <TouchableOpacity onPress={handlePress}>
-                            <Image source={logo} style={styles.logo} resizeMode="contain" />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.caixaAquamarine}>
-                        <View style={styles.caixaTeal}>
-                            <TouchableOpacity onPress={handlePress}>
-                                <Image source={logo} style={styles.logo} resizeMode="contain" />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.caixaSkyblue}>
-                            <TouchableOpacity onPress={handlePress}>
-                                <Image source={logo} style={styles.logo} resizeMode="contain" />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.base}>
-                    <TouchableOpacity onPress={handlePress}>
-                        <Image source={logo} style={styles.logo} resizeMode="contain" />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </SafeAreaView>
-    );
+        <Text style={styles.label}>Idade</Text>
+        <TextInput
+        style={styles.input}
+        value={idade}
+        onChangeText={setIdade}
+        keyboardType="numeric"
+        />
+
+        <Button title="Salvar" onPress={handleSalvar} />
+
+        {resultado ? <Text style={styles.resultado}>{resultado}</Text> : null}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        paddingTop: Constants.statusBarHeight,
-    },
-    topo: {
-        flex: 0.5,
-        flexDirection: "row"
-    },
-    base: {
-        flex: 0.5,
-        backgroundColor: "salmon",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    caixaLime: {
-        flex: 0.5,
-        backgroundColor: "lime",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    caixaAquamarine: {
-        flex: 0.5,
-        flexDirection: "column",
-    },
-    caixaTeal: {
-        flex: 0.5,
-        backgroundColor: "teal",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    caixaSkyblue: {
-        flex: 0.5,
-        backgroundColor: "skyblue",
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    logo: {
-        width: 64,
-        height: 64,
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 16,
+    backgroundColor: "#202020ff"
+  },
+  input: {
+    width: "100%",
+    height: 50,
+    marginBottom: 12,
+    paddingHorizontal: 10,
+    backgroundColor: "#fff",
+  },
+  label: {
+    fontSize: 18,
+    color: "#fff",
+  },
+  resultado: {
+    marginTop: 20,
+    fontSize: 18,
+    color: "#fff",
+  },
 });
