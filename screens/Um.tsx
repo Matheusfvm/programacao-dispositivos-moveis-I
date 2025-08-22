@@ -1,30 +1,45 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Image } from "react-native";
+import { View, StyleSheet, Image, Alert, TouchableOpacity} from "react-native";
 import Constants from "expo-constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import logo from "./../assets/adaptive-icon.png";
 
 export default function Um() {
+
+    const handlePress = () => {
+        Alert.alert("Boa noite!");
+    };
+
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
+                <TouchableOpacity onPress={handlePress}>
+
+                </TouchableOpacity>
                 <View style={styles.topo}>
                     <View style={styles.caixaLime}>
-                        <Image source={logo} style={styles.logo} resizeMode="contain" />
+                        <TouchableOpacity onPress={handlePress}>
+                            <Image source={logo} style={styles.logo} resizeMode="contain" />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.caixaAquamarine}>
                         <View style={styles.caixaTeal}>
-                            <Image source={logo} style={styles.logo} resizeMode="contain" />
+                            <TouchableOpacity onPress={handlePress}>
+                                <Image source={logo} style={styles.logo} resizeMode="contain" />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.caixaSkyblue}>
-                            <Image source={logo} style={styles.logo} resizeMode="contain" />
+                            <TouchableOpacity onPress={handlePress}>
+                                <Image source={logo} style={styles.logo} resizeMode="contain" />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
                 <View style={styles.base}>
-                    <Image source={logo} style={styles.logo} resizeMode="contain" />
+                    <TouchableOpacity onPress={handlePress}>
+                        <Image source={logo} style={styles.logo} resizeMode="contain" />
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
@@ -41,11 +56,19 @@ const styles = StyleSheet.create({
     },
     topo: {
         flex: 0.5,
-        flexDirection: "row",
+        flexDirection: "row"
+    },
+    base: {
+        flex: 0.5,
+        backgroundColor: "salmon",
+        justifyContent: "center",
+        alignItems: "center"
     },
     caixaLime: {
         flex: 0.5,
         backgroundColor: "lime",
+        justifyContent: "center",
+        alignItems: "center"
     },
     caixaAquamarine: {
         flex: 0.5,
@@ -53,18 +76,18 @@ const styles = StyleSheet.create({
     },
     caixaTeal: {
         flex: 0.5,
-        backgroundColor: "teal"
+        backgroundColor: "teal",
+        justifyContent: "center",
+        alignItems: "center"
     },
     caixaSkyblue: {
         flex: 0.5,
-        backgroundColor: "skyblue"
-    },
-    base: {
-        flex: 0.5,
-        backgroundColor: "salmon",
+        backgroundColor: "skyblue",
+        justifyContent: "center",
+        alignItems: "center"
     },
     logo: {
-        flex: 1,
-        alignSelf: "center",
+        width: 64,
+        height: 64,
     },
 });
