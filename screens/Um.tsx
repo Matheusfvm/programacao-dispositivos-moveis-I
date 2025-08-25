@@ -11,58 +11,96 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Um() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [confirmarSenha, setConfirmarSenha] = useState("");
     const [resultado, setResultado] = useState("");
 
-    const handleSalvar = () => {
-        if (email && senha) {
-            setResultado(`${email} - ${senha}`);
-        } else {
-            setResultado("Por favor, preencha todos os campos.");
+    const handleCadastrar = () => {
+        if (!email || !senha || !confirmarSenha) {
+            setResultado("Preencha todos os campos.");
+            return;
         }
+        if (senha !== confirmarSenha) {
+            setResultado("As senhas não coincidem.");
+            return;
+        }
+        setResultado(`${email} - ${senha} - ${confirmarSenha}`);
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.label}>E-mail</Text>
-            <TextInput
-                style={styles.input}
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                autoComplete="email"
-                autoCorrect={false}
-                keyboardType="email-address"
-            />
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.container}>
+                <View style={styles.borda}>
+                    <Text style={styles.titulo}>CADASTRO</Text>
+                    <Text style={styles.label}>E-mail</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={email}
+                        onChangeText={setEmail}
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect={false}
+                        keyboardType="email-address"
+                    />
 
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-                style={styles.input}
-                value={senha}
-                onChangeText={setSenha}
-                secureTextEntry={true}
-                maxLength={8}
-            />
-            <View style={styles.containerBotao}>
-                <TouchableOpacity onPress={handleSalvar} style={styles.botao}>
-                    <Text style={styles.textoBotao}>Logar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.botao}>
-                    <Text style={styles.textoBotao}>Cadastrar-se</Text>
-                </TouchableOpacity>
+                    <Text style={styles.label}>Senha</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={senha}
+                        onChangeText={setSenha}
+                        secureTextEntry={true}
+                        maxLength={8}
+                    />
+                    <Text style={styles.label}>Confirmação da senha</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={confirmarSenha}
+                        onChangeText={setConfirmarSenha}
+                        secureTextEntry={true}
+                        maxLength={8}
+                    />
+                    <View style={styles.containerBotao}>
+                        <TouchableOpacity onPress={handleCadastrar} style={styles.botao}>
+                            <Text style={styles.textoBotao}>Cadastrar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.botao}>
+                            <Text style={styles.textoBotao}>Logar</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                    {resultado ? <Text style={styles.resultado}>{resultado}</Text> : null}
+                </View>
             </View>
-
-
-            {resultado ? <Text style={styles.resultado}>{resultado}</Text> : null}
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: "#2c2c2c",
+    },
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         padding: 16,
-        backgroundColor: "#202020ff"
+    },
+    borda: {
+        width: "90%",
+        maxWidth: 270, // largura máxima de 270px
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 8,
+        padding: 16,
+        backgroundColor: "#2c2c2c",
+    },
+    titulo: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#b4d330", // verde do título (igual na imagem)
+        textAlign: "center",
+        marginBottom: 16,
     },
     input: {
         width: "100%",
