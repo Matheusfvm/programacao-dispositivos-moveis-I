@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 import { useCep } from "../hooks/useCep";
 
 export default function CepScreen() {
-  const { cep, setCep, data, buscarCep } = useCep();
+  const { cep, setCep, data, error, buscarCep } = useCep();
 
   return (
     <View style={styles.container}>
@@ -19,6 +19,8 @@ export default function CepScreen() {
       <TouchableOpacity style={styles.button} onPress={buscarCep}>
         <Text style={styles.buttonText}>Obter</Text>
       </TouchableOpacity>
+
+      {error && <Text style={styles.label}>{error}</Text>}
 
       {data && (
         <View>
