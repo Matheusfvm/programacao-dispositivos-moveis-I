@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Um from "./screens/Um"
+import Home from "./screens/Home"
 
 export default function App() {
-  return <Um />
+  return <Home />
 }
 
 
