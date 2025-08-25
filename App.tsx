@@ -1,8 +1,8 @@
+// App.tsx
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import Onze from "./screens/Onze";
 import Um from "./screens/Um";
 import Dois from "./screens/Dois";
 import Tres from "./screens/Tres";
@@ -12,27 +12,26 @@ import Seis from "./screens/Seis";
 import Sete from "./screens/Sete";
 import Oito from "./screens/Oito";
 import Nove from "./screens/Nove";
-import Dez from "./screens/Dez"
+import Dez from "./screens/Dez";
 import { RootStackParamList } from "./types";
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Onze">
-        <Stack.Screen name="Onze" component={Onze} options={{ headerShown: false }} />
-        <Stack.Screen name="Um" component={Um} />
-        <Stack.Screen name="Dois" component={Dois} />
-        <Stack.Screen name="Tres" component={Tres} />
-        <Stack.Screen name="Quatro" component={Quatro} />
-        <Stack.Screen name="Cinco" component={Cinco} />
-        <Stack.Screen name="Seis" component={Seis} />
-        <Stack.Screen name="Sete" component={Sete} />
-        <Stack.Screen name="Oito" component={Oito} />
-        <Stack.Screen name="Nove" component={Nove} />
-        <Stack.Screen name="Dez" component={Dez} />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="Um">
+        <Drawer.Screen name="Um" component={Um} options={{ title: "Exercício 1" }} />
+        <Drawer.Screen name="Dois" component={Dois} options={{ title: "Exercício 2" }} />
+        <Drawer.Screen name="Tres" component={Tres} options={{ title: "Exercício 3" }} />
+        <Drawer.Screen name="Quatro" component={Quatro} options={{ title: "Exercício 4" }} />
+        <Drawer.Screen name="Cinco" component={Cinco} options={{ title: "Exercício 5" }} />
+        <Drawer.Screen name="Seis" component={Seis} options={{ title: "Exercício 6" }} />
+        <Drawer.Screen name="Sete" component={Sete} options={{ title: "Exercício 7" }} />
+        <Drawer.Screen name="Oito" component={Oito} options={{ title: "Exercício 8" }} />
+        <Drawer.Screen name="Nove" component={Nove} options={{ title: "Exercício 9" }} />
+        <Drawer.Screen name="Dez" component={Dez} options={{ title: "Exercício 10" }} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }

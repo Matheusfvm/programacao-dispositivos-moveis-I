@@ -1,7 +1,6 @@
 import { ParamListBase } from "@react-navigation/native";
 
 export interface RootStackParamList extends ParamListBase {
-  Onze: undefined;
   Um: undefined;
   Dois: undefined;
   Tres: undefined;
@@ -10,4 +9,6 @@ export interface RootStackParamList extends ParamListBase {
   Seis: undefined;
   Sete: undefined;
   Oito: undefined;
+  Nove: undefined;
+  Dez: undefined;
 }
