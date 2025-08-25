@@ -7,15 +7,17 @@ import {
     TouchableOpacity
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Picker } from "@react-native-picker/picker";
 
 export default function Um() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
+    const [funcao, setFuncao] = useState("");
     const [resultado, setResultado] = useState("");
 
     const handleCadastrar = () => {
-        if (!email || !senha || !confirmarSenha) {
+        if (!email || !senha || !confirmarSenha || !funcao) {
             setResultado("Preencha todos os campos.");
             return;
         }
@@ -23,7 +25,7 @@ export default function Um() {
             setResultado("As senhas não coincidem.");
             return;
         }
-        setResultado(`${email} - ${senha} - ${confirmarSenha}`);
+        setResultado(`${email} - ${senha} - ${confirmarSenha} - ${funcao}`);
     };
 
     return (
@@ -58,6 +60,18 @@ export default function Um() {
                         secureTextEntry={true}
                         maxLength={8}
                     />
+                    <Text style={styles.label}>Confirmação da senha</Text>
+                    <View style={styles.pickerContainer}>
+                        <Picker
+                            selectedValue={funcao}
+                            onValueChange={(itemValue) => setFuncao(itemValue)}
+                            style={styles.picker}
+                        >
+                            <Picker.Item label="Administrador" value="admin" />
+                            <Picker.Item label="Gestor" value="manager" />
+                            <Picker.Item label="Usuário" value="user" />
+                        </Picker>
+                    </View>
                     <View style={styles.containerBotao}>
                         <TouchableOpacity onPress={handleCadastrar} style={styles.botao}>
                             <Text style={styles.textoBotao}>Cadastrar</Text>
@@ -112,6 +126,17 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 18,
         color: "#fff",
+    },
+    pickerContainer: {
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 6,
+        marginBottom: 12,
+        backgroundColor: "#fff",
+    },
+    picker: {
+        height: 50,
+        width: "100%",
     },
     containerBotao: {
         flexDirection: "row",
