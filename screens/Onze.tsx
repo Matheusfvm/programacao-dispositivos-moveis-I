@@ -7,34 +7,42 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
 
 import fatecLogo from "../assets/fatec-logo.png";
 
-export default function Home() {
+type Props = NativeStackScreenProps<RootStackParamList, "Onze">;
+
+export default function Onze({ navigation }: Props) {
   const botoes = [
-    "Um", "Dois",
-    "Três", "Quatro",
-    "Cinco", "Seis",
-    "Sete", "Oito",
-    "Nove", "Dez",
+    { label: "Um", rota: "Um" },
+    { label: "Dois", rota: "Dois" },
+    { label: "Três", rota: "Tres" },
+    { label: "Quatro", rota: "Quatro" },
+    { label: "Cinco", rota: "Cinco" },
+    { label: "Seis", rota: "Seis" },
+    { label: "Sete", rota: "Sete" },
+    { label: "Oito", rota: "Oito" },
+    { label: "Nove", rota: "Nove" },
+    { label: "Dez", rota: "Dez" },
   ];
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.box}>
-          {/* Logo */}
           <Image source={fatecLogo} style={styles.logo} resizeMode="contain" />
-
-          {/* Texto HOME */}
           <Text style={styles.title}>HOME</Text>
 
-          {/* Grid de botões */}
           <View style={styles.grid}>
             {botoes.map((btn, index) => (
-              <TouchableOpacity key={index} style={styles.button}>
-                <Text style={styles.buttonText}>{btn}</Text>
+              <TouchableOpacity
+                key={index}
+                style={styles.button}
+                onPress={() => navigation.navigate(btn.rota as any)}
+              >
+                <Text style={styles.buttonText}>{btn.label}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -47,7 +55,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#e0e0e0", // fundo cinza claro
+    backgroundColor: "#e0e0e0",
   },
   container: {
     flex: 1,
@@ -82,7 +90,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "48%",
-    backgroundColor: "#f9a825", // amarelo
+    backgroundColor: "#f9a825",
     paddingVertical: 12,
     marginBottom: 12,
     borderRadius: 6,
