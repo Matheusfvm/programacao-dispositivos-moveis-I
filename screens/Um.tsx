@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Switch
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
@@ -14,6 +15,7 @@ export default function Um() {
     const [senha, setSenha] = useState("");
     const [confirmarSenha, setConfirmarSenha] = useState("");
     const [funcao, setFuncao] = useState("");
+    const [logado, setLogado] = useState(false);
     const [resultado, setResultado] = useState("");
 
     const handleCadastrar = () => {
@@ -25,7 +27,7 @@ export default function Um() {
             setResultado("As senhas não coincidem.");
             return;
         }
-        setResultado(`${email} - ${senha} - ${confirmarSenha} - ${funcao}`);
+        setResultado(`${email} - ${senha} - ${confirmarSenha} - ${funcao} - ${logado ? "sim" : "não"}`);
     };
 
     return (
@@ -60,7 +62,7 @@ export default function Um() {
                         secureTextEntry={true}
                         maxLength={8}
                     />
-                    <Text style={styles.label}>Confirmação da senha</Text>
+                    <Text style={styles.label}>Confirmação da função</Text>
                     <View style={styles.pickerContainer}>
                         <Picker
                             selectedValue={funcao}
@@ -71,6 +73,15 @@ export default function Um() {
                             <Picker.Item label="Gestor" value="manager" />
                             <Picker.Item label="Usuário" value="user" />
                         </Picker>
+                    </View>
+                    <View style={styles.switchRow}>
+                        <Text style={styles.label}>Manter-se conectado</Text>
+                        <Switch
+                            value={logado}
+                            onValueChange={setLogado}
+                            trackColor={{ false: "#e77878", true: "#94df83" }}
+                            thumbColor={logado ? "#47eb22" : "#ed1111"}
+                        />
                     </View>
                     <View style={styles.containerBotao}>
                         <TouchableOpacity onPress={handleCadastrar} style={styles.botao}>
@@ -102,7 +113,7 @@ const styles = StyleSheet.create({
     },
     borda: {
         width: "90%",
-        maxWidth: 270, // largura máxima de 270px
+        maxWidth: 270,
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 8,
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 18,
         fontWeight: "bold",
-        color: "#b4d330", // verde do título (igual na imagem)
+        color: "#b4d330",
         textAlign: "center",
         marginBottom: 16,
     },
@@ -138,12 +149,18 @@ const styles = StyleSheet.create({
         height: 50,
         width: "100%",
     },
+    switchRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 16,
+    },
     containerBotao: {
         flexDirection: "row",
         justifyContent: "center"
     },
     botao: {
-        backgroundColor: "#f9a825", // amarelo (como na imagem)
+        backgroundColor: "#f9a825",
         paddingVertical: 12,
         paddingHorizontal: 12,
         marginHorizontal: 10,
