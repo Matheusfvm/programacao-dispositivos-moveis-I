@@ -1,35 +1,37 @@
+
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TextInput, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Constants from "expo-constants";
 
-export default function Dois() {
+export default function Exercice5() {
     const [mode, setMode] = useState("");
+    const [name, setName] = useState("");
+    const [names, setNames] = useState<string[]>([]);
 
     useEffect(() => {
         readOrientation();
+
+        const subscription = ScreenOrientation.addOrientationChangeListener(
+            ({ orientationInfo }) => {
+                if (
+                    orientationInfo.orientation === ScreenOrientation.Orientation.PORTRAIT_UP ||
+                    orientationInfo.orientation === ScreenOrientation.Orientation.PORTRAIT_DOWN) {
+                    setMode("portrait");
+                } else if (
+                    orientationInfo.orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
+                    orientationInfo.orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
+                ) {
+                    setMode("landscape");
+                };
+            }
+        );
 
         return () => {
             ScreenOrientation.removeOrientationChangeListener(subscription);
         };
     }, []);
-
-    const subscription = ScreenOrientation.addOrientationChangeListener(
-        ({ orientationInfo }) => {
-            if (
-                orientationInfo.orientation === ScreenOrientation.Orientation.PORTRAIT_UP ||
-                orientationInfo.orientation === ScreenOrientation.Orientation.PORTRAIT_DOWN) {
-                setMode("portrait");
-            } else if (
-                orientationInfo.orientation === ScreenOrientation.Orientation.LANDSCAPE_LEFT ||
-                orientationInfo.orientation === ScreenOrientation.Orientation.LANDSCAPE_RIGHT
-            ) {
-                setMode("landscape");
-            };
-
-        }
-    );
 
     const readOrientation = async () => {
         const orientation = await ScreenOrientation.getOrientationAsync();
@@ -46,22 +48,57 @@ export default function Dois() {
         }
     };
 
+    const addName = () => {
+        if (name.trim() !== "") {
+            setNames([...names, name]);
+            setName("");
+        }
+    };
+
+    const renderItem = ({ item }: { item: string }) => (
+        <View style={mode === "portrait" ? stylesPortrait.listItem : stylesLandscape.listItem}>
+            <Text>{item}</Text>
+        </View>
+    );
+
     return (
         <SafeAreaView style={mode === "portrait" ? stylesPortrait.container : stylesLandscape.container}>
             <View style={mode === "portrait" ? stylesPortrait.top : stylesLandscape.top}>
-                <Text>Exercício 4</Text>
+                <Text>Exercício 5</Text>
             </View>
             <View style={mode === "portrait" ? stylesPortrait.base : stylesLandscape.base}>
-                <View style={mode === "portrait" ? stylesPortrait.middle : stylesLandscape.middle}>
-                    <Text>Middle</Text>
+                <View style={mode === "portrait" ? stylesPortrait.inputContainer : stylesLandscape.inputContainer}>
+                    <Text>Nome</Text>
+                    <TextInput
+                        style={styles.textInput}
+                        onChangeText={setName}
+                        value={name}
+                        placeholder="Nome completo"
+                        onSubmitEditing={addName}
+                        returnKeyType="done"
+                    />
                 </View>
-                <View style={mode === "portrait" ? stylesPortrait.bottom : stylesLandscape.bottom}>
-                    <Text>Bottom</Text>
-                </View>
+                <FlatList
+                    style={mode === "portrait" ? stylesPortrait.list : stylesLandscape.list}
+                    data={names}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
             </View>
         </SafeAreaView>
     );
-};
+}
+
+const styles = StyleSheet.create({
+    textInput: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        width: '100%',
+        paddingHorizontal: 10,
+        backgroundColor: '#fff',
+    },
+});
 
 const stylesPortrait = StyleSheet.create({
     container: {
@@ -75,17 +112,20 @@ const stylesPortrait = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFA07A',
     },
-    middle: {
-        flex: 0.5,
-        justifyContent: "center",
-        alignItems: 'center',
+    inputContainer: {
+        flex: 0.1,
+        padding: 10,
         backgroundColor: '#F08080',
-    },
-    bottom: {
-        flex: 0.5,
-        justifyContent: "center",
         alignItems: 'center',
+    },
+    list: {
+        flex: 0.9,
         backgroundColor: '#FF6347',
+    },
+    listItem: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0,0,0,0.1)',
     },
     base: {
         flex: 1,
@@ -100,25 +140,27 @@ const stylesLandscape = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
     },
     top: {
-        flex: 0.2,
+        flex: 0.3,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#F5F5DC',
     },
-    middle: {
+    inputContainer: {
         flex: 0.5,
-        justifyContent: "center",
-        alignItems: 'center',
+        padding: 10,
         backgroundColor: '#F0E68C',
     },
-    bottom: {
+    list: {
         flex: 0.5,
-        justifyContent: "center",
-        alignItems: 'center',
         backgroundColor: '#BDB76B',
+    },
+    listItem: {
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(0,0,0,0.1)',
     },
     base: {
         flex: 1,
-        flexDirection: "row"
-    }
+        flexDirection: "row",
+    },
 });
