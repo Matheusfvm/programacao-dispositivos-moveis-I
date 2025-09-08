@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, StatusBar, ScrollView } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, StatusBar, ScrollView, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraGaleriaScreen() {
   const [imageUris, setImageUris] = useState<string[]>([]);
+
+  const removerImagem = (uriToRemove: any) => {
+    // Filtra o array de URIs, mantendo apenas as imagens cujo URI não é o que queremos remover
+    const newImageUris = imageUris.filter(uri => uri !== uriToRemove);
+    setImageUris(newImageUris);
+  };
 
   const abrirGaleria = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -22,7 +28,7 @@ export default function CameraGaleriaScreen() {
   const abrirCamera = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
-      alert("Permissão para usar a câmera foi negada.");
+      Alert.alert("Permissão para usar a câmera foi negada.");
       return;
     }
 
@@ -50,12 +56,19 @@ export default function CameraGaleriaScreen() {
 
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {imageUris.map((uri, index) => (
-            <Image
-              key={index}
-              source={{ uri }}
-              style={styles.image}
-              resizeMode="contain"
-            />
+            <View key={index} style={styles.imageContainer}>
+              <Image
+                source={{ uri }}
+                style={styles.image}
+                resizeMode="contain"
+              />
+              <TouchableOpacity
+                onPress={() => removerImagem(uri)}
+                style={styles.removeButton}
+              >
+                <MaterialIcons name="close" size={24} color="red" />
+              </TouchableOpacity>
+            </View>
           ))}
         </ScrollView>
       </View>
@@ -87,9 +100,20 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     alignItems: "center",
   },
+  imageContainer: {
+    position: "relative",
+    marginVertical: 10,
+  },
   image: {
     width: 200,
     height: 200,
-    marginVertical: 10,
+  },
+  removeButton: {
+    position: "absolute",
+    top: 5,
+    left: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+    borderRadius: 15,
+    padding: 2,
   },
 });
