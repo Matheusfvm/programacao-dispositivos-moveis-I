@@ -46,23 +46,22 @@ export default function Dois() {
         }
     };
 
-    const getFlexDirection = () => {
-        return mode === "portrait" ? "column" : "row";
-    };
     return (
         <SafeAreaView style={mode === "portrait" ? stylesPortrait.container : stylesLandscape.container}>
             <View style={mode === "portrait" ? stylesPortrait.top : stylesLandscape.top}>
-                <Text>Top</Text>
+                <Text>Exercício 4</Text>
             </View>
-            <View style={mode === "portrait" ? stylesPortrait.middle : stylesLandscape.middle}>
-                <Text>Middle</Text>
-            </View>
-            <View style={mode === "portrait" ? stylesPortrait.bottom : stylesLandscape.bottom}>
-                <Text>Bottom</Text>
+            <View style={mode === "portrait" ? stylesPortrait.base : stylesLandscape.base}>
+                <View style={mode === "portrait" ? stylesPortrait.middle : stylesLandscape.middle}>
+                    <Text>Middle</Text>
+                </View>
+                <View style={mode === "portrait" ? stylesPortrait.bottom : stylesLandscape.bottom}>
+                    <Text>Bottom</Text>
+                </View>
             </View>
         </SafeAreaView>
     );
-}
+};
 
 const stylesPortrait = StyleSheet.create({
     container: {
@@ -71,47 +70,55 @@ const stylesPortrait = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
     },
     top: {
-        flex: 1,
+        flex: 0.1,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#FFA07A',
     },
     middle: {
-        flex: 1,
+        flex: 0.5,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#F08080',
     },
     bottom: {
-        flex: 1,
+        flex: 0.5,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#FF6347',
+    },
+    base: {
+        flex: 1,
+        flexDirection: "column"
     }
 });
 
 const stylesLandscape = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "column",
         paddingTop: Constants.statusBarHeight,
     },
     top: {
-        flex: 1,
+        flex: 0.2,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#F5F5DC',
     },
     middle: {
-        flex: 1,
+        flex: 0.5,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#F0E68C',
     },
     bottom: {
-        flex: 1,
+        flex: 0.5,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: '#BDB76B',
+    },
+    base: {
+        flex: 1,
+        flexDirection: "row"
     }
 });
