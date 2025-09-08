@@ -1,7 +1,7 @@
 import React from "react";
 
-import ContactsScreen from "./screens/ContatosScreen";
+import CameraGaleriaScreen from "./screens/CameraGaleriaScreen";
 
 export default function App() {
-  return <ContactsScreen />
+  return <CameraGaleriaScreen />
 }

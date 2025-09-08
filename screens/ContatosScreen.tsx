@@ -1,4 +1,3 @@
-// screens/ContactsScreen.tsx
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -6,10 +5,11 @@ import {
   FlatList,
   StyleSheet,
   Button,
-  Alert,
-  SafeAreaView,
+  Alert
 } from "react-native";
 import * as Contacts from "expo-contacts";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 
 import { Contato } from "../types/contatos";
 
