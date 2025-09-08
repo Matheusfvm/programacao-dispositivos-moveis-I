@@ -1,7 +1,7 @@
 import React from "react";
 
-import InstagramScreen from "./screens/InstagramScreen";
+import ContactsScreen from "./screens/ContatosScreen";
 
 export default function App() {
-  return <InstagramScreen />
+  return <ContactsScreen />
 }
