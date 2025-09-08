@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 
-export default function Um() {
+export default function Tres() {
     return (
         <View style={styles.container}>
             <View style={styles.topo}>

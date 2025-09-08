@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Um() {
+export default function Seis() {
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [resultado, setResultado] = useState("");

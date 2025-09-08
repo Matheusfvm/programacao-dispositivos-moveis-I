@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import logo from "./../assets/adaptive-icon.png";
 
-export default function Um() {
+export default function Cinco() {
 
     const handlePress = () => {
         Alert.alert("Boa noite!");

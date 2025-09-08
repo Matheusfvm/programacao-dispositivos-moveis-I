@@ -1,7 +1,7 @@
 import React from "react";
 
-import OrientacaoScreen from "./screens/OrientacaoScreen";
+import Dois from "./screens/Dois";
 
 export default function App() {
-  return <OrientacaoScreen />
+  return <Dois />
 }
