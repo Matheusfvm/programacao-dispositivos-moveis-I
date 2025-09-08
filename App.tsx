@@ -1,7 +1,7 @@
 import React from "react";
 
-import YoutubeScreen from "./screens/YoutubeScreen"
+import DiscarScreen from "./screens/DiscarScreen";
 
 export default function App() {
-  return <YoutubeScreen />
+  return <DiscarScreen />
 }
