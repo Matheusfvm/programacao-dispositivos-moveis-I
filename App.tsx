@@ -1,7 +1,7 @@
 import React from "react";
 
-import DiscarScreen from "./screens/DiscarScreen";
+import InstagramScreen from "./screens/InstagramScreen";
 
 export default function App() {
-  return <DiscarScreen />
+  return <InstagramScreen />
 }
