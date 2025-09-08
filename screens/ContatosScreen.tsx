@@ -1,70 +1,73 @@
+// screens/ContactsScreen.tsx
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Button,
+  Alert,
+  SafeAreaView,
+} from "react-native";
 import * as Contacts from "expo-contacts";
 
 import { Contato } from "../types/contatos";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 
 
 export default function ContactsScreen() {
-    const [contacts, setContacts] = useState<Contato[]>([]);
+  const [contacts, setContacts] = useState<Contato[]>([]);
 
-    const carregarContatos = async () => {
-        try {
-            const { status } = await Contacts.requestPermissionsAsync();
-            if (status !== "granted") {
-                Alert.alert("Permissão negada", "Não é possível acessar os contatos.");
-                return;
-            }
+  const carregarContatos = async () => {
+    try {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permissão negada", "Não é possível acessar os contatos.");
+        return;
+      }
 
-            const { data } = await Contacts.getContactsAsync({
-                fields: [Contacts.Fields.PhoneNumbers],
-            });
+      const { data } = await Contacts.getContactsAsync({
+        fields: [Contacts.Fields.FirstName, Contacts.Fields.PhoneNumbers],
+      });
 
-            if (data.length > 0) {
-                const filtrados = data.filter(
-                    (c) => c.name && c.name.startsWith("C")
-                );
-                setContacts(filtrados as Contato[]);
-            }
-        } catch (error) {
-            Alert.alert("Erro", "Não foi possível carregar os contatos.");
-        }
-    };
+      if (data.length > 0) {
+        setContacts(data as Contato[]);
+      }
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível carregar os contatos.");
+    }
+  };
 
-    useEffect(() => {
-        carregarContatos();
-    }, []);
+  useEffect(() => {
+    carregarContatos();
+  }, []);
 
-    return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
-                <Button title="Recarregar Contatos" onPress={carregarContatos} />
-                <FlatList
-                    data={contacts}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <View style={styles.card}>
-                            <Text style={styles.name}>{item.name}</Text>
-                            {item.phoneNumbers?.map((phone, index) => (
-                                <Text key={index} style={styles.phone}>
-                                    {phone.number}
-                                </Text>
-                            ))}
-                        </View>
-                    )}
-                    ListEmptyComponent={<Text style={styles.empty}>Nenhum contato encontrado</Text>}
-                />
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Button title="Recarregar Contatos" onPress={carregarContatos} />
+        <FlatList
+          data={contacts}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.name}>
+                {item.name ? item.name : "Sem nome"}
+              </Text>
             </View>
-        </SafeAreaView>
-    );
+          )}
+          ListEmptyComponent={
+            <Text style={styles.empty}>Nenhum contato encontrado</Text>
+          }
+        />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#222", // mantém fundo na área da status bar
+    backgroundColor: "#222",
   },
   container: {
     flex: 1,
