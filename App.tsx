@@ -1,7 +1,7 @@
 import React from "react";
 
-import CameraGaleriaScreen from "./screens/CameraGaleriaScreen";
+import OrientacaoScreen from "./screens/OrientacaoScreen";
 
 export default function App() {
-  return <CameraGaleriaScreen />
+  return <OrientacaoScreen />
 }
