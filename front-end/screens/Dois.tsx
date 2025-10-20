@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as ScreenOrientation from "expo-screen-orientation";
 import Constants from "expo-constants";
 
-export default function Exercice5() {
+export default function Dois() {
     const [mode, setMode] = useState("");
     const [name, setName] = useState("");
     const [names, setNames] = useState<string[]>([]);
