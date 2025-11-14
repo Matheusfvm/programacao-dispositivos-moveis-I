@@ -2,10 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
-  JoinTable,
+  ManyToOne,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User";
+import { Enrollment } from "./Enrollment";
 
 @Entity("classes")
 export class Class {
@@ -18,13 +19,14 @@ export class Class {
   @Column({ name: "carga_horaria", type: "int" })
   cargaHoraria!: number;
 
-  @ManyToMany(() => User, (user) => user.disciplinas, {
+  // Professor titular da disciplina (1 professor → N disciplinas)
+  @ManyToOne(() => User, (user) => user.disciplinasMinistradas, {
     eager: true,
+    nullable: true, // pode começar sem professor vinculado
   })
-  @JoinTable({
-    name: "classes_alunos", // tabela de junção N:N
-    joinColumn: { name: "class_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "aluno_id", referencedColumnName: "id" },
-  })
-  alunos!: User[];
+  professor!: User | null;
+
+  // Matrículas (alunos) desta disciplina
+  @OneToMany(() => Enrollment, (matricula) => matricula.disciplina)
+  matriculas!: Enrollment[];
 }

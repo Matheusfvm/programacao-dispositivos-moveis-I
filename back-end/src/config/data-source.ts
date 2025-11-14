@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { User } from "../entities/User";
 import { Class } from "../entities/Class";
 import dotenv from "dotenv";
+import { Enrollment } from "../entities/Enrollment";
 
 dotenv.config();
 
@@ -15,5 +16,5 @@ export const AppDataSource = new DataSource({
   database: process.env.POSTGRES_DB,
   synchronize: true, // cria as tabelas automaticamente (apenas dev)
   logging: false,
-  entities: [User, Class],
+  entities: [User, Class, Enrollment],
 });

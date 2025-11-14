@@ -17,6 +17,13 @@ export default function HomeStudentScreen({ navigation }: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>Bem-vindo ao Sistema de Boletim 🎓</Text>
 
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("StudentReport")}
+      >
+        <Text style={styles.buttonText}>Meu Boletim</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.button} onPress={signOut}>
         <Text style={styles.buttonText}>Sair</Text>
       </TouchableOpacity>
@@ -46,6 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 12,
   },
   buttonText: {
     color: "#fff",

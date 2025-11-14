@@ -6,6 +6,7 @@ import { AppDataSource } from "./config/data-source";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import classRoutes from "./routes/class.routes";
+import reportRoutes from "./routes/report.routes";
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/classes", classRoutes);
+app.use("/api/boletim", reportRoutes);
 
 const PORT = Number(process.env.PORT) || 3000;
 

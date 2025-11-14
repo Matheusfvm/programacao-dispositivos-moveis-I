@@ -24,4 +24,11 @@ router.post(
   ClassController.matricularAluno
 );
 
+// Vincular professor titular a disciplina
+router.patch(
+  "/:id/professor",
+  requireRole("admin"),
+  ClassController.atualizarProfessor
+);
+
 export default router;

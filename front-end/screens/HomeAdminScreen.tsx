@@ -39,6 +39,13 @@ export default function HomeAdminScreen({ navigation }: Props) {
         <Text style={styles.buttonText}>Matricular Aluno</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("ClassReport")}
+      >
+        <Text style={styles.buttonText}>Boletim por Disciplina</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={[styles.button, styles.buttonLogout]} onPress={signOut}>
         <Text style={styles.buttonText}>Sair</Text>
       </TouchableOpacity>

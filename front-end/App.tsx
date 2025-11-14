@@ -15,6 +15,8 @@ import CreateClassScreen from "./screens/CreateClassScreen";
 import EnrollStudentScreen from "./screens/EnrollStudentScreen";
 
 import { View, ActivityIndicator } from "react-native";
+import ReportClassScreen from "./screens/ReportClassScreen";
+import ReportStudentScreen from "./screens/ReportStudentScreen";
 
 export type RootStackParamList = {
   Login: undefined;
@@ -24,6 +26,8 @@ export type RootStackParamList = {
   CreateUser: undefined;
   CreateClass: undefined;
   EnrollStudent: undefined;
+  ClassReport: undefined;
+  StudentReport: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -50,16 +54,19 @@ function AppRoutes() {
           <Stack.Screen name="CreateUser" component={CreateUserScreen} />
           <Stack.Screen name="CreateClass" component={CreateClassScreen} />
           <Stack.Screen name="EnrollStudent" component={EnrollStudentScreen} />
+          <Stack.Screen name="ClassReport" component={ReportClassScreen} />
         </>
       ) : user.tipo === "professor" ? (
         <>
           <Stack.Screen name="TeacherHome" component={HomeTeacherScreen} />
           <Stack.Screen name="CreateClass" component={CreateClassScreen} />
           <Stack.Screen name="EnrollStudent" component={EnrollStudentScreen} />
+          <Stack.Screen name="ClassReport" component={ReportClassScreen} />
         </>
       ) : (
         <>
           <Stack.Screen name="StudentHome" component={HomeStudentScreen} />
+          <Stack.Screen name="StudentReport" component={ReportStudentScreen} />
         </>
       )}
     </Stack.Navigator>

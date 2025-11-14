@@ -25,7 +25,7 @@ export default function CreateClassScreen({ navigation }: Props) {
   const [professorId, setProfessorId] = useState("");
 
   const handleCreateClass = async () => {
-    if (!nome || !cargaHoraria) {
+    if (!nome || !cargaHoraria || !professorId) {
       Alert.alert("Atenção", "Preencha nome e carga horária.");
       return;
     }

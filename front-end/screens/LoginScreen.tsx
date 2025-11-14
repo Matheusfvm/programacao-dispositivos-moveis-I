@@ -39,7 +39,7 @@ export default function LoginScreen() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <Text style={styles.title}>Boletim Acadêmico</Text>
+      <Text style={styles.title}>Aplicativo Scholar</Text>
 
       <TextInput
         style={styles.input}

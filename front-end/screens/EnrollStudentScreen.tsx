@@ -66,7 +66,7 @@ export default function EnrollStudentScreen({ navigation }: Props) {
 
       <TextInput
         style={styles.input}
-        placeholder="ID da disciplina (classId)"
+        placeholder="ID da disciplina"
         placeholderTextColor="#999"
         keyboardType="numeric"
         value={classId}
@@ -75,7 +75,7 @@ export default function EnrollStudentScreen({ navigation }: Props) {
 
       <TextInput
         style={styles.input}
-        placeholder="ID do aluno (alunoId)"
+        placeholder="ID do aluno"
         placeholderTextColor="#999"
         keyboardType="numeric"
         value={alunoId}

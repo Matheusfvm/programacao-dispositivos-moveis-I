@@ -18,10 +18,6 @@ export default function HomeTeacherScreen({ navigation }: Props) {
       <Text style={styles.title}>Área do Professor</Text>
       <Text style={styles.subtitle}>Olá, {user?.nome}</Text>
 
-      <Text style={styles.info}>
-        (Futuramente: listar disciplinas, lançar notas, etc.)
-      </Text>
-
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate("CreateClass")}
@@ -34,6 +30,13 @@ export default function HomeTeacherScreen({ navigation }: Props) {
         onPress={() => navigation.navigate("EnrollStudent")}
       >
         <Text style={styles.buttonText}>Matricular Aluno</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate("ClassReport")}
+      >
+        <Text style={styles.buttonText}>Boletim por Disciplina</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={signOut}>
