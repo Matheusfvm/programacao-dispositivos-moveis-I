@@ -42,3 +42,21 @@ export const authMiddleware = (
     return res.status(401).json({ message: "Token inválido ou expirado" });
   }
 };
+
+export const requireRole =
+  (...roles: string[]) =>
+    (req: Request, res: Response, next: NextFunction) => {
+      const user = (req as any).user;
+
+      if (!user) {
+        return res.status(401).json({ message: "Usuário não autenticado" });
+      }
+
+      if (!roles.includes(user.tipo)) {
+        return res
+          .status(403)
+          .json({ message: "Você não tem permissão para acessar esta rota" });
+      }
+
+      next();
+    };

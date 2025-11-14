@@ -1,45 +1,45 @@
+// screens/LoginScreen.tsx
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
-import api from "../services/api";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { useAuth } from "../hooks/useAuth";
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Login">;
-
-type Props = {
-  navigation: LoginScreenNavigationProp;
-};
-
-export default function LoginScreen({ navigation }: Props) {
+export default function LoginScreen() {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
   const handleLogin = async () => {
-  if (!email || !senha) {
-    Alert.alert("Atenção", "Preencha todos os campos.");
-    return;
-  }
-
-  try {
-    const { data } = await api.post("auth/login", { email, senha });
-
-    Alert.alert("Sucesso", "Login realizado!");
-    console.log("Usuário logado:", data.user);
-
-    navigation.replace("Home");
-  } catch (error: any) {
-    if (error.response) {
-      Alert.alert("Erro", error.response.data.message || "Falha no login");
-    } else {
-      // Erro de rede ou timeout
-      Alert.alert("Erro", "Não foi possível conectar ao servidor.");
+    if (!email || !senha) {
+      Alert.alert("Atenção", "Preencha todos os campos.");
+      return;
     }
-  }
-};
+
+    try {
+      await signIn(email, senha);
+      // navegação é controlada pelo AppRoutes (quando user muda)
+    } catch (error: any) {
+      console.log(error?.response?.data || error);
+      Alert.alert(
+        "Erro",
+        error?.response?.data?.message || "Falha ao tentar autenticar."
+      );
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Boletim FATEC</Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <Text style={styles.title}>Boletim Acadêmico</Text>
 
       <TextInput
         style={styles.input}
@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }: Props) {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#fff",
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: "bold",
     marginBottom: 40,
   },

@@ -2,23 +2,22 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
+import { useAuth } from "../hooks/useAuth";
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
+type NavProp = NativeStackNavigationProp<RootStackParamList, "StudentHome">;
 
 type Props = {
-  navigation: HomeScreenNavigationProp;
+  navigation: NavProp;
 };
 
-export default function HomeScreen({ navigation }: Props) {
-  const handleLogout = () => {
-    navigation.replace("Login");
-  };
+export default function HomeStudentScreen({ navigation }: Props) {
+  const { user, signOut } = useAuth();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bem-vindo ao Sistema de Boletim 🎓</Text>
 
-      <TouchableOpacity style={styles.button} onPress={handleLogout}>
+      <TouchableOpacity style={styles.button} onPress={signOut}>
         <Text style={styles.buttonText}>Sair</Text>
       </TouchableOpacity>
     </View>

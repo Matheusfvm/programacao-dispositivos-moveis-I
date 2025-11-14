@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Class } from "./Class";
 
 @Entity("users")
 export class User {
@@ -16,4 +17,7 @@ export class User {
 
   @Column({ default: "aluno" }) // "admin", "professor", "aluno"
   tipo!: string;
+
+  @ManyToMany(() => Class, (classe) => classe.alunos)
+  disciplinas!: Class[]
 }
